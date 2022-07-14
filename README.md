@@ -1,5 +1,5 @@
 # Материалы для изучения многопоточности и асинхронности
-## Курсы
+## Записи курсов
 * [Семинары CLRium "Concurrency и Parallelism" (Станислав Сидристый и Ко.)](https://www.youtube.com/playlist?list=PLBwwJL9lzKMY9Fpk1DAscywid1Xshp9NL)
 * [Курс "Параллельное программирование" 2022 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpTBs1GPt-4UygYxK3bVSyZe)
 * [Курс "Теория и практика многопоточной синхронизации (ТПМС, Concurrency)" [Лекции] 2022 (ФМПИ, Роман Липовский)](https://www.youtube.com/playlist?list=PL4_hYwCyhAva37lNnoMuBcKRELso5nvBm)
@@ -37,4 +37,5 @@
 * [Публичное собеседование по многопоточности (Kotlin)](https://www.youtube.com/watch?v=2hLHgcsOV3)
 * [Подкаст Подлодки про многопоточность (с Романом Елизаровым)](https://podlodka.io/102)
 
-Материал будет пополняться и структурироваться.
+
+Материал будет пополняться и структурироваться. PR горячо приветствуются.
