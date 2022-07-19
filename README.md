@@ -36,7 +36,10 @@
 ## Подкасты
 * [DotNet&More #31: Многопоточность и не только](https://music.yandex.ru/album/18268100/track/91640946)
 * [Podlodka #102 – Многопоточность (с Романом Елизаровым)](https://podlodka.io/102)
-* [Mobile People Talks: Асинхронность – знаешь что об этом ты?](https://music.yandex.ru/album/9647763/track/61693076)
+* [Podlodka #56 – Корутины, Промисы, Акторы](https://podlodka.io/56)
+* [Mobile People Talks: Асинхронность – знаешь что об этом ты?](https://music.yandex.ru/album/9647763/track/61693076) [часть 2](https://music.yandex.ru/album/9647763/track/61693077)
+* [Flutter Dev Podcast: Асинхронность](https://music.yandex.ru/album/11609672/track/69414771)
+* [Moscow Python Podcast. Асинхронщина с базами данных: aiopg и другие звери](https://music.yandex.ru/album/6892837/track/53235626)
 
 ## Прочее
 * [Публичное собеседование по многопоточности (Kotlin)](https://www.youtube.com/watch?v=2hLHgcsOV3)
