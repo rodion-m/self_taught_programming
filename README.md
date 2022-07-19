@@ -6,18 +6,20 @@
 * [Курс "Теория и практика многопоточной синхронизации (ТПМС, Concurrency)" [Семинары] 2022 (ФМПИ, Роман Липовский)](https://www.youtube.com/playlist?list=PL4_hYwCyhAvYTxm55RBm_HA5Bq5W1Nv-R)
 * [Курс "Параллельные и распределённые вычисления" 2021 (ФПМИ, Ивченко О. Н.)](https://www.youtube.com/playlist?list=PL4_hYwCyhAvbof7wirWXeCH9wAfgDH0RI)
 * [[JS] Сборник лекций и докладов на тему "Асинхронное программирование" (Тимур Шемсединов)](https://www.youtube.com/playlist?list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T)
+* [[EN] Бесплатные уроки курса Async Expert от сообщества Dotnetos](https://www.youtube.com/playlist?list=PLpUkQYy-K8Y_Xx_bFQSXwCmvL-Uin88zN)
 
 ## Доклады
 * [Лекция "Многопоточное программирование в .NET ч. 1"  (Дмитрий Иванов)](https://youtu.be/GBCGL4GDgN4)
 * [Лекция "Многопоточное программирование в .NET ч. 2" (Дмитрий Иванов)](https://www.youtube.com/watch?v=dH6ZW8KOGFY)
 * ["ThreadPool для сервиса, адаптирующегося под внешнюю нагрузку" (Станислав Сидристый)](https://www.youtube.com/watch?v=LbiuLwNJd1I)
 * ["Разграничение ответственности между процессорными ядрами" (Станислав Сидристый)](https://www.youtube.com/watch?v=bHX7lwttrCA)
-* [[EN] Sasha Goldshtein — The C++ and CLR Memory Models](https://www.youtube.com/watch?v=6wZVpg2SyJQ)
+* [[EN] "The C++ and CLR Memory Models" (Sasha Goldshtein)](https://www.youtube.com/watch?v=6wZVpg2SyJQ)
 
 ## Книги и статьи
-* [Online-книга "DotNetBook" – Threads (Стас Сидристый)](https://github.com/sidristij/dotnetbook/tree/master/book/ru/Execution/01-Threads)
+* [Online-книга "DotNetBook" – глава про потоки (Стас Сидристый)](https://github.com/sidristij/dotnetbook/tree/master/book/ru/Execution/01-Threads)
 * [О Thread и ThreadPool в .NET подробно (часть 1)](https://habr.com/ru/post/654101/)
 * [О Thread и ThreadPool в .NET подробно (часть 2)](https://habr.com/ru/post/654111/)
+* [ConfigureAwait: часто задаваемые вопросы (перевод статьи Stephen Toub)](https://habr.com/ru/post/482354/)
 * [Барьеры памяти и неблокирующая синхронизация в .NET](https://habr.com/ru/post/130318/)
 * [Многопоточность на низком уровне](https://habr.com/ru/company/jugru/blog/543380/)
 * [Введение в lock-free программирование](https://habr.com/ru/company/wunderfund/blog/322094/)
@@ -31,11 +33,15 @@
 * [[EN] Статья "There Is No Thread" (Stephen Cleary)](https://blog.stephencleary.com/2013/11/there-is-no-thread.html)
 * [[EN] The CLR Thread Pool 'Thread Injection' Algorithm](https://mattwarren.org/2017/04/13/The-CLR-Thread-Pool-Thread-Injection-Algorithm/)
 
-
+## Подкасты
+* [DotNet&More #31: Многопоточность и не только](https://music.yandex.ru/album/18268100/track/91640946)
+* [Podlodka #102 – Многопоточность (с Романом Елизаровым)](https://podlodka.io/102)
+* [Mobile People Talks: Асинхронность – знаешь что об этом ты?](https://music.yandex.ru/album/9647763/track/61693076)
 
 ## Прочее
 * [Публичное собеседование по многопоточности (Kotlin)](https://www.youtube.com/watch?v=2hLHgcsOV3)
-* [Подкаст Подлодки про многопоточность (с Романом Елизаровым)](https://podlodka.io/102)
 
+## Платные курсы
+* [[EN] Async Expert – Большой курс от сообщества Dotnetos (Konrad Kokosa, Łukasz Pyrzyk, Szymon Kulec)](https://asyncexpert.com/)
 
 Материал будет пополняться и структурироваться. PR горячо приветствуются.
