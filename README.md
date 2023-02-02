@@ -13,6 +13,8 @@
 * [Лекция "Многопоточное программирование в .NET ч. 2" (Дмитрий Иванов)](https://www.youtube.com/watch?v=dH6ZW8KOGFY)
 * ["ThreadPool для сервиса, адаптирующегося под внешнюю нагрузку" (Станислав Сидристый)](https://www.youtube.com/watch?v=LbiuLwNJd1I)
 * ["Разграничение ответственности между процессорными ядрами" (Станислав Сидристый)](https://www.youtube.com/watch?v=bHX7lwttrCA)
+* ["Тонкие настройки стандартного ThreadPool" (Станислав Сидристый)](https://www.youtube.com/watch?v=zeWhoFWGWKo)
+* ["Здоровое || программирование – многопоточность vs асинхронность, зачем нам ThreadPool, контексты исполнения" (Родион Мостовой)](https://youtu.be/MqO1iMVbdOs?t=432)
 * [[EN] "The C++ and CLR Memory Models" (Sasha Goldshtein)](https://www.youtube.com/watch?v=6wZVpg2SyJQ)
 
 ## Книги и статьи
