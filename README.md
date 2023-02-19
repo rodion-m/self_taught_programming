@@ -1,3 +1,38 @@
+# Сборник материалов для изучения программирования
+В этом репозитории мы собираем лучшие материалы и источники для самостоятельного изучения программирования от нулевого до продвинутого уровня.
+
+# Навигация
+- Для начинающих
+- Информатика
+- [Алгоритмы и структуры данных \(АиСД\)](#Алгоритмы-и-структуры-данных)
+- [Многопоточность и асинхроннось](#Материалы-по-многопоточности-и-асинхронности)
+- Базы данных
+  - Entity Framework (.NET)
+- [Проектирование, архитектура и System Design](#Проектирование-архитектура-и-System-Design)
+  - SOLID
+  - GoF-паттерны
+  - GRASP
+  - Чистый код
+  - Domain-driven-design (DDD)
+  - [Чистая архитектура](#Чистая-архитектура)
+  - Распределенные системы
+- [Тестирование для программиста](#Тестирование-для-программиста)
+- Память и сборщик мусора (GC)
+  - Общее
+  - .NET
+  - Go
+- Прочее
+  - YouTube-каналы
+    - Уровень: Начальный
+    - Уровень: Продвинутый
+  - Подкасты
+  - Telegram-каналы
+  - Чаты (сообщества)
+
+***
+
+# Алгоритмы и структуры данных
+
 # Материалы по многопоточности и асинхронности
 ## Записи курсов
 * [Семинары CLRium "Concurrency и Parallelism" (Станислав Сидристый и Ко.)](https://www.youtube.com/playlist?list=PLBwwJL9lzKMY9Fpk1DAscywid1Xshp9NL)
@@ -49,4 +84,31 @@
 ## Платные курсы
 * [[EN] Async Expert – Большой курс от сообщества Dotnetos (Konrad Kokosa, Łukasz Pyrzyk, Szymon Kulec)](https://asyncexpert.com/)
 
-Материал будет пополняться и структурироваться. PR горячо приветствуются.
+***
+
+# Проектирование, архитектура и System Design
+## Чистая архитектура
+### Платные курсы
+* [[EN] Clean Architecture: Patterns, Practices, and Principles (Matthew Renze)](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/)
+
+***
+
+# Тестирование для программиста
+## Лекции
+
+## Платные курсы
+* [[EN] From Zero to Hero: Unit testing in C# [Nick Chapsas]](https://nickchapsas.com/p/from-zero-to-hero-unit-testing-in-c)
+* [[EN] From Zero to Hero: Integration testing in ASP.NET Core [Nick Chapsas]](https://nickchapsas.com/p/from-zero-to-hero-integration-testing-in-asp-net-core)
+* [[EN] Building a Pragmatic Unit Test Suite (Vladimir Khorikov)](https://app.pluralsight.com/library/courses/pragmatic-unit-testing/)
+* [[EN] Unit Testing an ASP.NET Core 6 Web API (Kevin Dockx)](https://app.pluralsight.com/library/courses/asp-dot-net-core-6-web-api-unit-testing/)
+
+***
+
+## TODO
+* Добавить обозначение сложности для каждой из ссылок
+* Добавить краткое описание каждого курса/доклада/статьи
+* Добавить подробную навигацию
+
+***
+
+#### Материалы будут пополняться и структурироваться. PR горячо приветствуются.
