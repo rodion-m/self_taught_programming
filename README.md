@@ -22,8 +22,8 @@
   - Общее
   - .NET
   - Go
-- Прочее
-  - YouTube-каналы
+- [Прочее](#Прочее)
+  - [YouTube-каналы](#YouTube-каналы)
     - Уровень: Начальный
     - Уровень: Продвинутый
   - Подкасты
@@ -106,7 +106,9 @@
 ***
 
 # Тестирование для программиста
-## Лекции
+## Книги и статьи
+* [Лучшие практики тестирования JavaScript и Node.js](https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/readme-ru.md)
+* [[EN] Comprehensive and exhaustive JavaScript & Node.js testing best practices](https://github.com/goldbergyoni/javascript-testing-best-practices/)
 
 ## Книги и статьи
 * [[EN] Comprehensive and exhaustive JavaScript & Node.js testing best practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
