@@ -22,6 +22,10 @@
   - Общее
   - .NET
   - Go
+- CI/CD
+- [Инструментарий](#Инструментарий)
+  - [Git](#Git)
+  - IDE
 - [Прочее](#Прочее)
   - [YouTube-каналы](#YouTube-каналы)
     - Уровень: Начальный
@@ -106,12 +110,12 @@
 ***
 
 # Тестирование для программиста
+## Доклады
+- [[EN] Creating a QA/DEV Collaborative Testing Strategy (Roy Osherove)](https://www.youtube.com/watch?v=HUpj4YXI8Bs)
+
 ## Книги и статьи
 * [Лучшие практики тестирования JavaScript и Node.js](https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/readme-ru.md)
 * [[EN] Comprehensive and exhaustive JavaScript & Node.js testing best practices](https://github.com/goldbergyoni/javascript-testing-best-practices/)
-
-## Книги и статьи
-* [[EN] Comprehensive and exhaustive JavaScript & Node.js testing best practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
 
 ## Платные курсы
 * [[EN] From Zero to Hero: Unit testing in C# (Nick Chapsas)](https://nickchapsas.com/p/from-zero-to-hero-unit-testing-in-c)
@@ -119,6 +123,12 @@
 * [[EN] Building a Pragmatic Unit Test Suite (Vladimir Khorikov)](https://app.pluralsight.com/library/courses/pragmatic-unit-testing/)
 * [[EN] Unit Testing an ASP.NET Core 6 Web API (Kevin Dockx)](https://app.pluralsight.com/library/courses/asp-dot-net-core-6-web-api-unit-testing/)
 * [[EN] NODE.JS Testing From A to Z (Yoni Goldberg)](https://testjavascript.com/)
+
+***
+
+# Инструментарий
+## Git
+- [Краткие инструкции по Git (что делать, если что-то пошло не так)](https://github.com/k88hudson/git-flight-rules/blob/master/README_ru.md)
 
 ***
 
