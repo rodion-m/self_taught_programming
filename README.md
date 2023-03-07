@@ -16,6 +16,8 @@
   - Domain-driven-design (DDD)
   - [Чистая архитектура](#Чистая-архитектура)
   - Распределенные системы
+  - [Референсные проекты](#Референсные-проекты)
+    - [.NET](#Референсные-проекты-на-NET)
 - [Тестирование для программиста](#Тестирование-для-программиста)
 - Память и сборщик мусора (GC)
   - Общее
@@ -90,6 +92,17 @@
 ## Чистая архитектура
 ### Платные курсы
 * [[EN] Clean Architecture: Patterns, Practices, and Principles (Matthew Renze)](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/)
+
+## Референсные проекты
+### Референсные проекты на .NET
+- [Пример веб-приложения на ASP.NET Core со слоенной архитектурой от Microsoft](https://github.com/dotnet-architecture/eShopOnWeb)
+- [Пример микросервисного веб-приложения на ASP.NET Core со слоенной архитектурой от Microsoft](https://github.com/dotnet-architecture/eShopOnContainers)
+- [Пример микросервисного веб-приложения на ABP Framework, работает на Kubernetes, Helm, включает API-Gateway и приложения на Angular](https://github.com/abpframework/eShopOnAbp)
+- [Шаблон проекта на ASP.NET Core с чистой архитектурой](https://github.com/jasontaylordev/CleanArchitecture)
+- [Пример интернет-магазина, реализованного на Blazor Server](https://github.com/dotnet-architecture/eShopOnBlazor)
+- [Шаблон проекта на ASP.NET Core + React + Redux + TypeScript + Hot Module Replacement ](https://github.com/based-ghost/aspnet-core-react-redux-playground-template)
+- [Пример веб-приложение на Blazor WebAssembly с чистой архитектурой](https://github.com/jasontaylordev/RapidBlazor)
+- [Шаблон "надежного ASP.NET Core веб-приложения, использующего сервисы Azure"](https://github.com/Azure/reliable-web-app-pattern-dotnet)
 
 ***
 
