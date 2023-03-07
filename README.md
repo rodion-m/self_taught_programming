@@ -1,4 +1,4 @@
-# Сборник материалов для изучения программирования
+# База знаний по изучению программирования
 В этом репозитории мы собираем лучшие материалы и источники для самостоятельного изучения программирования от нулевого до продвинутого уровня.
 
 # Навигация
@@ -7,12 +7,13 @@
 - [Алгоритмы и структуры данных \(АиСД\)](#Алгоритмы-и-структуры-данных)
 - [Многопоточность и асинхроннось](#Материалы-по-многопоточности-и-асинхронности)
 - Базы данных
-  - Entity Framework (.NET)
+  - ORM
+    - Entity Framework (.NET)
 - [Проектирование, архитектура и System Design](#Проектирование-архитектура-и-System-Design)
   - SOLID
   - GoF-паттерны
   - GRASP
-  - Чистый код
+  - Чистый код, Best Practice
   - Domain-driven-design (DDD)
   - [Чистая архитектура](#Чистая-архитектура)
   - Распределенные системы
@@ -23,8 +24,12 @@
   - Общее
   - .NET
   - Go
-- Прочее
-  - YouTube-каналы
+- CI/CD
+- [Инструментарий](#Инструментарий)
+  - [Git](#Git)
+  - IDE
+- [Прочее](#Прочее)
+  - [YouTube-каналы](#YouTube-каналы)
     - Уровень: Начальный
     - Уровень: Продвинутый
   - Подкасты
@@ -88,7 +93,18 @@
 
 ***
 
+# Базы данных
+## ORM
+### Entity Framework
+* [ORM с нуля | Как устроены Entity Framework и Dapper? | Как реализовать IQueryable? (Андрей Подколзин)](https://www.youtube.com/live/UvO-8p3JqW0)
+
+***
+
 # Проектирование, архитектура и System Design
+## Чистый код, Best Practice
+* [Node.js Лучшие практики](https://github.com/goldbergyoni/nodebestpractices/blob/master/README.russian.md)
+* [[EN] The Node.js best practices list](https://github.com/goldbergyoni/nodebestpractices)
+
 ## Чистая архитектура
 ### Платные курсы
 * [[EN] Clean Architecture: Patterns, Practices, and Principles (Matthew Renze)](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/)
@@ -107,18 +123,36 @@
 ***
 
 # Тестирование для программиста
-## Лекции
+## Доклады
+- [[EN] Creating a QA/DEV Collaborative Testing Strategy (Roy Osherove)](https://www.youtube.com/watch?v=HUpj4YXI8Bs)
+
+## Книги и статьи
+* [Лучшие практики тестирования JavaScript и Node.js](https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/readme-ru.md)
+* [[EN] Comprehensive and exhaustive JavaScript & Node.js testing best practices](https://github.com/goldbergyoni/javascript-testing-best-practices/)
 
 ## Платные курсы
-* [[EN] From Zero to Hero: Unit testing in C# [Nick Chapsas]](https://nickchapsas.com/p/from-zero-to-hero-unit-testing-in-c)
+* [[EN] From Zero to Hero: Unit testing in C# (Nick Chapsas)](https://nickchapsas.com/p/from-zero-to-hero-unit-testing-in-c)
 * [[EN] From Zero to Hero: Integration testing in ASP.NET Core [Nick Chapsas]](https://nickchapsas.com/p/from-zero-to-hero-integration-testing-in-asp-net-core)
 * [[EN] Building a Pragmatic Unit Test Suite (Vladimir Khorikov)](https://app.pluralsight.com/library/courses/pragmatic-unit-testing/)
 * [[EN] Unit Testing an ASP.NET Core 6 Web API (Kevin Dockx)](https://app.pluralsight.com/library/courses/asp-dot-net-core-6-web-api-unit-testing/)
+* [[EN] NODE.JS Testing From A to Z (Yoni Goldberg)](https://testjavascript.com/)
+
+***
+
+# Инструментарий
+## Git
+- [Краткие инструкции по Git (что делать, если что-то пошло не так)](https://github.com/k88hudson/git-flight-rules/blob/master/README_ru.md)
+
+***
+
+# Прочее
+## YouTube каналы
+* [Сообщество youtube-каналов с IT контентом на любые темы и уровни](https://ityoutubers.com/)
 
 ***
 
 ## TODO
-* Добавить обозначение сложности для каждой из ссылок
+* Добавить обозначение сложности материала для каждой из ссылок
 * Добавить краткое описание каждого курса/доклада/статьи
 * Добавить подробную навигацию
 
