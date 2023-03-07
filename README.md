@@ -2,13 +2,13 @@
 В этом репозитории мы собираем лучшие материалы и источники для самостоятельного изучения программирования от нулевого до продвинутого уровня.
 
 # Навигация
-- Для начинающих
+- [Начинающим](#Начинающим)
 - Информатика
 - [Алгоритмы и структуры данных \(АиСД\)](#Алгоритмы-и-структуры-данных)
 - [Многопоточность и асинхроннось](#Материалы-по-многопоточности-и-асинхронности)
-- Базы данных
-  - ORM
-    - Entity Framework (.NET)
+- [Базы данных](#Базы данных)
+  - [ORM](#orm)
+    - [Entity Framework (.NET)](#entity-framework)
 - [Проектирование, архитектура и System Design](#Проектирование-архитектура-и-System-Design)
   - SOLID
   - GoF-паттерны
@@ -25,6 +25,8 @@
   - .NET
   - Go
 - CI/CD
+- Собеседования
+  - .NET
 - [Инструментарий](#Инструментарий)
   - [Git](#Git)
   - IDE
@@ -38,7 +40,22 @@
 
 ***
 
+# Начинающим
+## Записи курсов
+- [CS50 – Гарвардский курс по основам программирования](https://www.youtube.com/playlist?list=PLawfWYMUziZqyUL5QDLVbe3j5BKWj42E5)
+- [Увлекательное программирование на C# (Дмитрий Сошников)](https://www.youtube.com/playlist?list=PL6XUtJhtlpPM3mTfgYBY5Zql4b4szL4KP)
+- [Основы программирования и анализа данных на Python (Хирьянов Тимофей Фёдорович)](https://youtube.com/playlist?list=PLcsjsqLLSfND6vNUS4b13dHJHOxLm0nv5)
+- ["C# 2022 с нуля до профи" (9 часовой курс)](https://www.youtube.com/watch?v=w8rRhAup4kg)
+
+## Бесплатные онлайн курсы
+- [Ulearn.me: Множество курсов по основам программирования на C#](https://ulearn.me/)
+
+***
+
 # Алгоритмы и структуры данных
+- [Курс по оценке сложности алгоритмов на ulearn.me](https://ulearn.me/Course/complexity/)
+
+***
 
 # Материалы по многопоточности и асинхронности
 ## Записи курсов
@@ -86,7 +103,7 @@
 * [Moscow Python Podcast. Асинхронщина с базами данных: aiopg и другие звери](https://music.yandex.ru/album/6892837/track/53235626)
 
 ## Прочее
-* [Публичное собеседование по многопоточности (Kotlin)](https://www.youtube.com/watch?v=2hLHgcsOV3)
+* [Публичное собеседование по многопоточности (Kotlin, Android)](https://youtu.be/2hLHgcsOV3s)
 
 ## Платные курсы
 * [[EN] Async Expert – Большой курс от сообщества Dotnetos (Konrad Kokosa, Łukasz Pyrzyk, Szymon Kulec)](https://asyncexpert.com/)
