@@ -1,24 +1,26 @@
 # База знаний по изучению программирования
-В этом репозитории мы собираем лучшие материалы и источники для самостоятельного изучения программирования от нулевого до продвинутого уровня.
+В этом репозитории мы собираем лучшие материалы и источники для самостоятельного изучения программирования от нулевого до продвинутого уровня. Все материалы на **русском** языке, за исключением случаев, когда указан префикс [EN].
 
 # Навигация
 - [Начинающим](#Начинающим)
+- [Курсы разработки ПО](#Курсы-разработки-ПО)
 - Информатика
 - [Алгоритмы и структуры данных \(АиСД\)](#Алгоритмы-и-структуры-данных)
-- [Многопоточность и асинхроннось](#Материалы-по-многопоточности-и-асинхронности)
+- [Многопоточность и асинхроннось](#Многопоточность-и-асинхронность)
 - [Базы данных](#Базы данных)
   - [ORM](#orm)
     - [Entity Framework (.NET)](#entity-framework)
 - [Проектирование, архитектура и System Design](#Проектирование-архитектура-и-System-Design)
   - SOLID
-  - GoF-паттерны
+  - [GoF-паттерны](#gof-паттерны)
   - GRASP
   - Чистый код, Best Practice
-  - Domain-driven-design (DDD)
+  - [Domain-driven-design (DDD)](#domain-driven-design-ddd)
   - [Чистая архитектура](#Чистая-архитектура)
   - Распределенные системы
   - [Референсные проекты](#Референсные-проекты)
     - [.NET](#Референсные-проекты-на-NET)
+- Процессы разработки и методологии (#Процессы-разработки-и-методологии)
 - [Тестирование для программиста](#Тестирование-для-программиста)
 - Память и сборщик мусора (GC)
   - Общее
@@ -52,12 +54,20 @@
 
 ***
 
+# Курсы разработки ПО
+- [Курс "Разработка ПО" в CS Center о жизненном цикле, методологиях и прочем (Тимофей Брыксин)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpSidTs7HuqUX_NeslBsg2Mb)
+- [Курс "Проектирование программного обеспечения" в CS Center (Юрий Литвинов)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpQwYFLXBG22XnKYXFzQ7-1K)
+- ["Школа бекенд-разработки 2021" (Python) от Академии Яндекса](https://www.youtube.com/playlist?list=PLQC2_0cDcSKCMKnywAS8eI_EgCcE3yx0r)
+- ["Школа бекенд-разработки 2022" (Python, Java) от Академии Яндекса](https://www.youtube.com/playlist?list=PLQC2_0cDcSKB0fq36NuDhbpcd20OVNPBp)
+
+***
+
 # Алгоритмы и структуры данных
 - [Курс по оценке сложности алгоритмов на ulearn.me](https://ulearn.me/Course/complexity/)
 
 ***
 
-# Материалы по многопоточности и асинхронности
+# Многопоточность и асинхронность
 ## Записи курсов
 * [Семинары CLRium "Concurrency и Parallelism" (Станислав Сидристый и Ко.)](https://www.youtube.com/playlist?list=PLBwwJL9lzKMY9Fpk1DAscywid1Xshp9NL)
 * [Курс "Параллельное программирование" 2022 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpTBs1GPt-4UygYxK3bVSyZe)
@@ -78,6 +88,7 @@
 
 ## Книги и статьи
 * [Online-книга "DotNetBook" – глава про потоки (Стас Сидристый)](https://github.com/sidristij/dotnetbook/tree/master/book/ru/Execution/01-Threads)
+* [Полное понимание асинхронности в браузере](https://habr.com/ru/company/yandex/blog/718084/)
 * [О Thread и ThreadPool в .NET подробно (часть 1)](https://habr.com/ru/post/654101/)
 * [О Thread и ThreadPool в .NET подробно (часть 2)](https://habr.com/ru/post/654111/)
 * [ConfigureAwait: часто задаваемые вопросы (перевод статьи Stephen Toub)](https://habr.com/ru/post/482354/)
@@ -118,6 +129,13 @@
 ***
 
 # Проектирование, архитектура и System Design
+
+## GoF паттерны
+- [Курс "Проектирование программного обеспечения" в CS Center (Юрий Литвинов)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpQwYFLXBG22XnKYXFzQ7-1K)
+
+## Domain-Driven Design (DDD)
+- [Занятие "Предметно-ориентированное проектирование" из курса по проектированию ПО (Юрий Литвинов)](https://youtu.be/pAdC0JyqRJE)
+
 ## Чистый код, Best Practice
 * [Node.js Лучшие практики](https://github.com/goldbergyoni/nodebestpractices/blob/master/README.russian.md)
 * [[EN] The Node.js best practices list](https://github.com/goldbergyoni/nodebestpractices)
@@ -139,8 +157,23 @@
 
 ***
 
+# Процессы-разработки-и-методологии
+- [Курс "Разработка ПО" в CS Center о жизненном цикле, методологиях и прочем (Тимофей Брыксин)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpSidTs7HuqUX_NeslBsg2Mb)
+
+***
+
 # Тестирование для программиста
+## Записи курсов, занятия
+- [EQSP 12/20: Философия автоматизированных тестов (Егор Бугаенко)](https://www.youtube.com/watch?v=ZPvGF9KtYO8&list=PLRslTbFwdzZ_rscv7zd9hwR21mgC_bAsk&index=1)
+- [Занятие "Python - Тестирование" (Сергей Бочкарев) из курса "ШБР 2022" Академии Яндекса](https://www.youtube.com/watch?v=957lkNw-ThE)
+- [Занятие "Java - Тестирование" (Сергей Волков) из курса "ШБР 2022" Академии Яндекса](https://www.youtube.com/watch?v=DVsd37jocZ4)
+- [Занятие "Нагрузочное тестирование" (Григорий Липин) из курса "ШБР 2022" Академии Яндекса](https://youtu.be/rkDaMowYrUM)
+
 ## Доклады
+- [Эффективное юнит-тестирование (Владимир Хориков)](https://www.youtube.com/watch?v=AAD9se2LjuI&list=PLRslTbFwdzZ_rscv7zd9hwR21mgC_bAsk&index=4&)
+- [Юнит-тестирование в разработке (Сергей Немчинский)](https://youtu.be/KAny2OSYY3Y?list=PLRslTbFwdzZ_rscv7zd9hwR21mgC_bAsk)
+- [Имитируем с Moq (Иван Кожин)](https://www.youtube.com/watch?v=XmVhRPZlj8g)
+- [Мутационное тестирование в .NET (Николай Молчанов)](https://youtu.be/5gCvcUcctuU?list=PLRslTbFwdzZ_rscv7zd9hwR21mgC_bAsk)
 - [[EN] Creating a QA/DEV Collaborative Testing Strategy (Roy Osherove)](https://www.youtube.com/watch?v=HUpj4YXI8Bs)
 
 ## Книги и статьи
@@ -153,6 +186,11 @@
 * [[EN] Building a Pragmatic Unit Test Suite (Vladimir Khorikov)](https://app.pluralsight.com/library/courses/pragmatic-unit-testing/)
 * [[EN] Unit Testing an ASP.NET Core 6 Web API (Kevin Dockx)](https://app.pluralsight.com/library/courses/asp-dot-net-core-6-web-api-unit-testing/)
 * [[EN] NODE.JS Testing From A to Z (Yoni Goldberg)](https://testjavascript.com/)
+
+***
+
+## Подкасты
+- [[S01E10] Testing | BookClub DOTNET - Тестирование микросервисов (Владимир Хориков)](https://youtu.be/jmRCoi6-57Y?list=PLRslTbFwdzZ_rscv7zd9hwR21mgC_bAsk)
 
 ***
 
@@ -172,6 +210,7 @@
 * Добавить обозначение сложности материала для каждой из ссылок
 * Добавить краткое описание каждого курса/доклада/статьи
 * Добавить подробную навигацию
+* В виде спойлера вывести все темы из курсов после названия курса
 
 ***
 
