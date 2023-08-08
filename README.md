@@ -6,7 +6,7 @@
 - [Курсы разработки ПО](#Курсы-разработки-ПО)
 - Информатика
 - [Алгоритмы и структуры данных \(АиСД\)](#Алгоритмы-и-структуры-данных)
-- [Многопоточность и асинхроннось](#Многопоточность-и-асинхронность)
+- [Многопоточность и асинхроннось](#многопоточность-и-асинхронность)
 - [Базы данных](#Базы-данных)
   - [ORM](#orm)
     - [Entity Framework (.NET)](#entity-framework)
@@ -78,13 +78,15 @@
 * [[EN] Бесплатные уроки курса Async Expert от сообщества Dotnetos](https://www.youtube.com/playlist?list=PLpUkQYy-K8Y_Xx_bFQSXwCmvL-Uin88zN)
 
 ## Доклады
-* [Лекция "Многопоточное программирование в .NET ч. 1"  (Дмитрий Иванов)](https://youtu.be/GBCGL4GDgN4)
+* [Лекция "Многопоточное программирование в .NET ч. 1" (Дмитрий Иванов)](https://youtu.be/GBCGL4GDgN4)
 * [Лекция "Многопоточное программирование в .NET ч. 2" (Дмитрий Иванов)](https://www.youtube.com/watch?v=dH6ZW8KOGFY)
 * ["ThreadPool для сервиса, адаптирующегося под внешнюю нагрузку" (Станислав Сидристый)](https://www.youtube.com/watch?v=LbiuLwNJd1I)
 * ["Разграничение ответственности между процессорными ядрами" (Станислав Сидристый)](https://www.youtube.com/watch?v=bHX7lwttrCA)
 * ["Тонкие настройки стандартного ThreadPool" (Станислав Сидристый)](https://www.youtube.com/watch?v=zeWhoFWGWKo)
-* ["Здоровое || программирование – многопоточность vs асинхронность, зачем нам ThreadPool, контексты исполнения" (Родион Мостовой)](https://youtu.be/MqO1iMVbdOs?t=432)
+* ["Здоровое || программирование – многопоточность vs асинхронность, зачем нам ThreadPool, контексты исполнения" 2022 (Родион Мостовой)](https://youtu.be/MqO1iMVbdOs?t=432)
+* ["Модель памяти .NET" 2017 (Валерий Петров)](https://youtu.be/m9_aBxdKrRI)
 * [[EN] "The C++ and CLR Memory Models" (Sasha Goldshtein)](https://www.youtube.com/watch?v=6wZVpg2SyJQ)
+* [[EN] "How Interlocked and Volatile works in .NET" 2020 (Dotnetos)](https://youtu.be/0xXeYzYFbrk)
 
 ## Книги и статьи
 * [Online-книга "DotNetBook" – глава про потоки (Стас Сидристый)](https://github.com/sidristij/dotnetbook/tree/master/book/ru/Execution/01-Threads)
