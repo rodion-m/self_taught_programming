@@ -41,6 +41,7 @@
   - Подкасты
   - Telegram-каналы
   - [Чаты (сообщества)](#чаты-сообщества)
+  - [Другие сборники](#другие-сборники)
 
 ***
 
@@ -218,12 +219,21 @@
 
 # Прочее
 ## YouTube каналы
-* [Сообщество YouTube-каналов с IT контентом на любые темы и уровни](https://ityoutubers.com/)
+- [Сообщество YouTube-каналов с IT контентом на любые темы и уровни](https://ityoutubers.com/)
 
 ***
 
 ## Чаты (сообщества)
-* [Большой сборник русскоязычных IT-чатов](https://github.com/mtdvio/ru-tech-chats)
+- [Большой сборник русскоязычных IT-чатов](https://github.com/mtdvio/ru-tech-chats)
+
+***
+
+## Другие сборники
+
+- [[EN] Сборник "Каждый разработчик должен знать"](https://github.com/mtdvio/every-programmer-should-know?tab=readme-ov-file)
+- [[EN] Чеклист перед выходом в продакшн](https://github.com/mtdvio/going-to-production)
+- [Список сервисов в помощь веб-разработчику](https://github.com/mtdvio/web-development-resources)
+- [Список сервисов (облачных в основном) с бесплатныыми лимитами для разработчиков](https://github.com/ripienaar/free-for-dev)
 
 ***
 
