@@ -26,7 +26,7 @@
   - Общее
   - .NET
   - Go
-- CI/CD
+- [CI/CD](#cicd)
 - Собеседования
   - .NET
 - [Инструментарий](#инструментарий)
@@ -85,6 +85,7 @@
 * ["Тонкие настройки стандартного ThreadPool" (Станислав Сидристый)](https://www.youtube.com/watch?v=zeWhoFWGWKo)
 * ["Здоровое || программирование – многопоточность vs асинхронность, зачем нам ThreadPool, контексты исполнения" 2022 (Родион Мостовой)](https://youtu.be/MqO1iMVbdOs?t=432)
 * ["Модель памяти .NET" 2017 (Валерий Петров)](https://youtu.be/m9_aBxdKrRI)
+* [lock(_sync): иллюзия идеального выбора (Станислав Сидристый)](https://youtu.be/PEHQjSwp01k)
 * [[EN] "The C++ and CLR Memory Models" (Sasha Goldshtein)](https://www.youtube.com/watch?v=6wZVpg2SyJQ)
 * [[EN] "How Interlocked and Volatile works in .NET" 2020 (Dotnetos)](https://youtu.be/0xXeYzYFbrk)
 
@@ -193,6 +194,11 @@
 
 ## Подкасты
 - [[S01E10] Testing | BookClub DOTNET - Тестирование микросервисов (Владимир Хориков)](https://youtu.be/jmRCoi6-57Y?list=PLRslTbFwdzZ_rscv7zd9hwR21mgC_bAsk)
+
+***
+
+# CI/CD
+- [Docker - Полный курс Docker Для Начинающих [3 ЧАСА]](https://www.youtube.com/watch?v=_uZQtRyF6Eg)
 
 ***
 
