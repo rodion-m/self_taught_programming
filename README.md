@@ -31,6 +31,7 @@
   - .NET
 - [Инструментарий](#инструментарий)
   - [Git](#git)
+  - [Регулярные выражения](#регулярные-выражения)
   - IDE
 - [Прочее](#прочее)
   - [YouTube-каналы](#youtube-каналы)
@@ -38,7 +39,7 @@
     - Уровень: Продвинутый
   - Подкасты
   - Telegram-каналы
-  - Чаты (сообщества)
+  - [Чаты (сообщества)](#чаты-сообщества)
 
 ***
 
@@ -149,8 +150,8 @@
 
 ## Референсные проекты
 ### Референсные проекты на .NET
+- [Пример микросервисного приложения eShop по DDD от Microsoft](https://github.com/dotnet/eShop)
 - [Пример веб-приложения на ASP.NET Core со слоенной архитектурой от Microsoft](https://github.com/dotnet-architecture/eShopOnWeb)
-- [Пример микросервисного веб-приложения на ASP.NET Core со слоенной архитектурой от Microsoft](https://github.com/dotnet-architecture/eShopOnContainers)
 - [Пример микросервисного веб-приложения на ABP Framework, работает на Kubernetes, Helm, включает API-Gateway и приложения на Angular](https://github.com/abpframework/eShopOnAbp)
 - [Шаблон проекта на ASP.NET Core с чистой архитектурой](https://github.com/jasontaylordev/CleanArchitecture)
 - [Пример интернет-магазина, реализованного на Blazor Server](https://github.com/dotnet-architecture/eShopOnBlazor)
@@ -208,9 +209,20 @@
 
 ***
 
+## Регулярные выражения
+- [Небольшой учебник по изучению регулярных выражений на GitHub](https://github.com/ziishaned/learn-regex/blob/master/translations/README-ru.md)
+- [Кроссворды на регулярках — геймификация в изучении регулярок](https://regexcrossword.com/)
+
+***
+
 # Прочее
 ## YouTube каналы
-* [Сообщество youtube-каналов с IT контентом на любые темы и уровни](https://ityoutubers.com/)
+* [Сообщество YouTube-каналов с IT контентом на любые темы и уровни](https://ityoutubers.com/)
+
+***
+
+## Чаты (сообщества)
+* [Большой сборник русскоязычных IT-чатов](https://github.com/mtdvio/ru-tech-chats)
 
 ***
 
