@@ -20,11 +20,14 @@
   - [ORM](#orm)
     - [Entity Framework](#entity-framework)
 - [Проектирование, архитектура и System Design](#проектирование-архитектура-и-system-design)
+  - [Архитектура, микросервисы](#архитектура-микросервисы)
+    - [Бесплатные курсы](#бесплатные-курсы)
+    - [Платные курсы](#платные-курсы-1)
   - [GoF паттерны](#gof-паттерны)
   - [Domain-Driven Design (DDD)](#domain-driven-design-ddd)
   - [Чистый код, Best Practice](#чистый-код-best-practice)
   - [Чистая архитектура](#чистая-архитектура)
-    - [Платные курсы](#платные-курсы-1)
+    - [Платные курсы](#платные-курсы-2)
   - [Референсные проекты](#референсные-проекты)
     - [Референсные проекты на .NET](#референсные-проекты-на-net)
 - [Процессы-разработки-и-методологии](#процессы-разработки-и-методологии)
@@ -32,9 +35,11 @@
   - [Записи курсов, занятия](#записи-курсов-занятия)
   - [Доклады](#доклады-1)
   - [Книги и статьи](#книги-и-статьи-1)
-  - [Платные курсы](#платные-курсы-2)
+  - [Платные курсы](#платные-курсы-3)
   - [Подкасты](#подкасты-1)
 - [CI/CD](#cicd)
+- [Облака (Clouds)](#облака-clouds)
+  - [Курсы](#курсы)
 - [Инструментарий](#инструментарий)
   - [Git](#git)
   - [Регулярные выражения](#регулярные-выражения)
@@ -139,6 +144,20 @@
 
 # Проектирование, архитектура и System Design
 
+## Архитектура, микросервисы
+
+### Бесплатные курсы
+- [[EN] Продвинутая архитектура распределённых систем (Udi Dahan)](https://coursehunter.net/course/prodvinutaya-arhitektura-raspredelennyh-sistem)
+
+### Платные курсы
+Качество отечественных платных курсов под вопросом. Здесь собраны те из них, что мне попадались. Есть мнение, что курсы по архитектуре от зарубежных авторов более качественные.
+
+- [Разработка Enterprise-приложений без боли и сожалений (Евгений Лукьянов, Сергей Бухаров)](https://howto.stringconcat.com/enterprise)
+- [Асинхронная архитектура от "Школа сильных программистов" (Фёдор Борщёв, Антон Давыдов)](https://tough-dev.school/architecture)
+- [Курсы по архитектуре и System Design от Systems.Education (разные авторы)](https://systems.education/#arch)
+- [Курсы от ex-архитектора ЦБ РФ Максима Смирнова](https://www.itexpert.ru/rus/services/training/trainers/detail.php?ID=2196)
+- [Software Architect от OTUS (разные авторы)](https://otus.ru/lessons/software-architect/)
+
 ## GoF паттерны
 - [Курс "Проектирование программного обеспечения" в CS Center (Юрий Литвинов)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpQwYFLXBG22XnKYXFzQ7-1K)
 
@@ -205,6 +224,14 @@
 
 # CI/CD
 - [Docker - Полный курс Docker Для Начинающих [3 ЧАСА]](https://www.youtube.com/watch?v=_uZQtRyF6Eg)
+
+***
+
+# Облака (Clouds)
+
+## Курсы
+- [[EN] Architecting Distributed Cloud Applications (2017, Jeffry Richter (да, тот самый Рихтер))](https://www.youtube.com/playlist?list=PL9XzOCngAkqs0Q8ZRdafnSYExKQurZrBY)
+- [[EN] Building Microservices Applications On Azure Service Fabric (2019, Jeffry Richter)](https://learn.microsoft.com/en-us/shows/building-microservices-applications-on-azure-service-fabric/what-is-a-service-fabric-cluster)
 
 ***
 
