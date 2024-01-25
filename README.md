@@ -195,6 +195,7 @@
 ***
 
 # Процессы-разработки-и-методологии
+
 - [Курс "Разработка ПО" в CS Center о жизненном цикле, методологиях и прочем (Тимофей Брыксин)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpSidTs7HuqUX_NeslBsg2Mb)
 
 ***
@@ -232,7 +233,9 @@
 ***
 
 # CI/CD
-- [Docker - Полный курс Docker Для Начинающих [3 ЧАСА]](https://www.youtube.com/watch?v=_uZQtRyF6Eg)
+
+- [Docker - Курс для начинающих [3 ЧАСА] (Богдан Станчук)](https://www.youtube.com/watch?v=_uZQtRyF6Eg)
+- [Kubernetes - Курс для начинающих (Богдан Станчук)](https://youtu.be/hNLQ3tCP8jQ?si=7UJB3s4EwaIZRgPh)
 
 ***
 
@@ -257,6 +260,9 @@
 ***
 
 ## GPT для программистов
+- [Bloop: Чат с кодом (Open Source)](https://bloop.ai/)
+  - Загружаете в него репо и задаете по нему вопросу (например, "где реализована логика работы с аккаунтом?"), а bloop в ответ выдает вам список соответствующих файлов и мест в коде.
+- [Onboard AI: Аналог bloop, только с закрытым исходным кодом](https://app.getonboardai.com/)
 - [[EN] Курс "ChatGPT Prompt Engineering for Developers"](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)
 
 
