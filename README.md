@@ -16,6 +16,8 @@
   - [Подкасты](#подкасты)
   - [Прочее](#прочее)
   - [Платные курсы](#платные-курсы)
+- [Сборка мусора (GC)](#сборка-мусора-gc)
+  - [GC в .NET](#gc-в-net)
 - [Базы данных](#базы-данных)
   - [ORM](#orm)
     - [Entity Framework](#entity-framework)
@@ -135,6 +137,13 @@
 
 ***
 
+# Сборка мусора (GC)
+
+## GC в .NET
+* [Курс "CLRium #5: Garbage Collector" (2019, Станислав Седристый)](https://www.youtube.com/playlist?list=PLBwwJL9lzKMY3At-QQQijfiHdsYnOQ7vY)
+
+***
+
 # Базы данных
 ## ORM
 ### Entity Framework
@@ -250,9 +259,11 @@
 ## GPT для программистов
 - [[EN] Курс "ChatGPT Prompt Engineering for Developers"](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)
 
+
 ***
 
 # Прочее
+
 ## YouTube каналы
 - [Сообщество YouTube-каналов с IT контентом на любые темы и уровни](https://ityoutubers.com/)
 
