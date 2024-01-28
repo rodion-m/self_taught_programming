@@ -85,7 +85,9 @@
 ***
 
 # Многопоточность и асинхронность
+
 ## Записи курсов
+
 * [Семинары CLRium "Concurrency и Parallelism" (Станислав Сидристый и Ко.)](https://www.youtube.com/playlist?list=PLBwwJL9lzKMY9Fpk1DAscywid1Xshp9NL)
 * [Курс "Параллельное программирование" 2016 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpQCPeKTcVBHJns_JOxrc_fT)
 * ~~[Курс "Параллельное программирование" 2022 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpTBs1GPt-4UygYxK3bVSyZe)~~ - **плохой звук**
@@ -128,6 +130,7 @@
 * [[EN] Статья "ExecutionContext vs SynchronizationContext" (Stephen Toub)](https://devblogs.microsoft.com/pfxteam/executioncontext-vs-synchronizationcontext/)
 * [[EN] Статья "There Is No Thread" (Stephen Cleary)](https://blog.stephencleary.com/2013/11/there-is-no-thread.html)
 * [[EN] The CLR Thread Pool 'Thread Injection' Algorithm](https://mattwarren.org/2017/04/13/The-CLR-Thread-Pool-Thread-Injection-Algorithm/)
+* [[EN] AsyncGuidance: Лучшие практики при работе с асинхронностью (David Fowler)](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md)
 
 ## Подкасты
 * [DotNet&More #31: Многопоточность и не только](https://music.yandex.ru/album/18268100/track/91640946)
