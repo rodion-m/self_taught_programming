@@ -19,6 +19,9 @@
 - [Сборка мусора (GC)](#сборка-мусора-gc)
   - [GC в .NET](#gc-в-net)
 - [Базы данных](#базы-данных)
+  - [Курсы по СУБД](#курсы-по-субд)
+  - [Доклады и лекции по СУБД](#доклады-и-лекции-по-субд)
+  - [Прочее](#прочее-1)
   - [ORM](#orm)
     - [Entity Framework](#entity-framework)
 - [Проектирование, архитектура и System Design](#проектирование-архитектура-и-system-design)
@@ -46,7 +49,7 @@
   - [Git](#git)
   - [Регулярные выражения](#регулярные-выражения)
   - [GPT для программистов](#gpt-для-программистов)
-- [Прочее](#прочее-1)
+- [Прочее](#прочее-2)
   - [YouTube каналы](#youtube-каналы)
   - [Чаты (сообщества)](#чаты-сообщества)
   - [Другие сборники](#другие-сборники)
@@ -68,6 +71,7 @@
 ***
 
 # Курсы разработки ПО
+- [Курс "ИТМО - Проектирование ПО 2021" (Андрей Суховицкий)](https://www.youtube.com/playlist?list=PLWMlibdhF88ll0BoB1Atv7mFK4jXJa7VI)
 - [Курс "Разработка ПО" в CS Center о жизненном цикле, методологиях и прочем (Тимофей Брыксин)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpSidTs7HuqUX_NeslBsg2Mb)
 - [Курс "Проектирование программного обеспечения" в CS Center (Юрий Литвинов)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpQwYFLXBG22XnKYXFzQ7-1K)
 - ["Школа бекенд-разработки 2021" (Python) от Академии Яндекса](https://www.youtube.com/playlist?list=PLQC2_0cDcSKCMKnywAS8eI_EgCcE3yx0r)
@@ -148,8 +152,23 @@
 ***
 
 # Базы данных
+
+## Курсы по СУБД
+
+* [[EN] Курс "CMU Intro to Database Systems (15-445/645 - Fall 2023) (Andy Pavlo, Jignesh Patel)"](https://www.youtube.com/playlist?list=PLSE8ODhjZXjbj8BMuIrRcacnQh20hmY9g)
+* [[EN] Множество курсов по СУБД от начального до продвинутого уровня от CMU DATABASE GROUP](https://www.youtube.com/@CMUDatabaseGroup/playlists)
+
+## Доклады и лекции по СУБД
+
+* [Прекрасная лекция про транзакции и ACID с примерами из курса "ИТМО - Проектирование ПО" (Андрей Суховицкий)](https://www.youtube.com/watch?v=cY9NaL8KT14&list=PLWMlibdhF88ll0BoB1Atv7mFK4jXJa7VI&index=12&pp=iAQB)
+
+## Прочее
+* [Мой плейлист (Родион Мостовой) с докладами и лекциями по СУБД](https://www.youtube.com/playlist?list=PLRslTbFwdzZ__LUZ_F80gD050SE2umwQk)
+
 ## ORM
+
 ### Entity Framework
+
 * [ORM с нуля | Как устроены Entity Framework и Dapper? | Как реализовать IQueryable? (Андрей Подколзин)](https://www.youtube.com/live/UvO-8p3JqW0)
 
 ***
