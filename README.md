@@ -87,7 +87,8 @@
 # Многопоточность и асинхронность
 ## Записи курсов
 * [Семинары CLRium "Concurrency и Parallelism" (Станислав Сидристый и Ко.)](https://www.youtube.com/playlist?list=PLBwwJL9lzKMY9Fpk1DAscywid1Xshp9NL)
-* [Курс "Параллельное программирование" 2022 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpTBs1GPt-4UygYxK3bVSyZe)
+* [Курс "Параллельное программирование" 2016 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpQCPeKTcVBHJns_JOxrc_fT)
+* ~~[Курс "Параллельное программирование" 2022 (CS Center, Евгений Калишенко)](https://www.youtube.com/playlist?list=PLlb7e2G7aSpTBs1GPt-4UygYxK3bVSyZe)~~ - **плохой звук**
 * [Курс "Теория и практика многопоточной синхронизации (ТПМС, Concurrency)" [Лекции] 2022 (ФМПИ, Роман Липовский)](https://www.youtube.com/playlist?list=PL4_hYwCyhAva37lNnoMuBcKRELso5nvBm)
 * [Курс "Теория и практика многопоточной синхронизации (ТПМС, Concurrency)" [Семинары] 2022 (ФМПИ, Роман Липовский)](https://www.youtube.com/playlist?list=PL4_hYwCyhAvYTxm55RBm_HA5Bq5W1Nv-R)
 * [Курс "Параллельные и распределённые вычисления" 2021 (ФПМИ, Ивченко О. Н.)](https://www.youtube.com/playlist?list=PL4_hYwCyhAvbof7wirWXeCH9wAfgDH0RI)
