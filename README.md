@@ -101,9 +101,11 @@
 * [lock(_sync): иллюзия идеального выбора (Станислав Сидристый)](https://youtu.be/PEHQjSwp01k)
 * [[EN] "The C++ and CLR Memory Models" (Sasha Goldshtein)](https://www.youtube.com/watch?v=6wZVpg2SyJQ)
 * [[EN] "How Interlocked and Volatile works in .NET" 2020 (Dotnetos)](https://youtu.be/0xXeYzYFbrk)
+* [[EN] "A Gentle Introduction To Low-Level Concurrency In .NET (Szymon Kulec)"](https://www.youtube.com/watch?v=dtUrG--oMLo)
 
 ## Книги и статьи
 * [Online-книга "DotNetBook" – глава про потоки (Стас Сидристый)](https://github.com/sidristij/dotnetbook/tree/master/book/ru/Execution/01-Threads)
+* [Самое главное про Memory Model в .NET (Родион Мостовой)](https://github.com/rodion-m/articles/blob/main/dotnet_memory_model.md)
 * [Полное понимание асинхронности в браузере](https://habr.com/ru/company/yandex/blog/718084/)
 * [О Thread и ThreadPool в .NET подробно (часть 1)](https://habr.com/ru/post/654101/)
 * [О Thread и ThreadPool в .NET подробно (часть 2)](https://habr.com/ru/post/654111/)
@@ -117,6 +119,7 @@
 * [System.Threading.Channels — высокопроизводительный производитель-потребитель и асинхронность без аллокаций и стэк дайва](https://habr.com/ru/post/508726/)
 * [Порт завершения (Completion Port)](https://habr.com/ru/post/59282/)
 * [Что означает RISC и CISC?](https://habr.com/ru/company/selectel/blog/542074/)
+* [ValueTask<TResult> — почему, зачем и как? (перевод статьи Stephen Toub)](https://habr.com/ru/companies/clrium/articles/465259/)
 * [[EN] Статья "ExecutionContext vs SynchronizationContext" (Stephen Toub)](https://devblogs.microsoft.com/pfxteam/executioncontext-vs-synchronizationcontext/)
 * [[EN] Статья "There Is No Thread" (Stephen Cleary)](https://blog.stephencleary.com/2013/11/there-is-no-thread.html)
 * [[EN] The CLR Thread Pool 'Thread Injection' Algorithm](https://mattwarren.org/2017/04/13/The-CLR-Thread-Pool-Thread-Injection-Algorithm/)
