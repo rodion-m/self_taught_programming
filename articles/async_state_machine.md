@@ -1,8 +1,12 @@
-﻿# Асинхронная машина состояний
-В этом документе приведен пример `машины состояний` (`конечного автомата`, `state machine`), которую генерирует компилятор из асинхронного метода для понимания того, как работает асинхронность в C#.
+﻿# Еще раз про асинхронную машину состояний и где именно там аллокации
 
-# "Высокуровневый C#"
-Это код на обычном C#.
+Несмотря на то, что про `async/await` уже было сказано много слов и записано множество докладов, тем не менее в своей практике преподавания и наставничества я часто сталкиваюсь с недопонимаем устройства `async/await` даже у Middle+ разработчиков.
+
+Итак, в данной статье мы еще раз рассмотрим `машину состояний` (`конечный автомат`, `state machine`, далее просто `SM`), которую генерирует компилятор из асинхронного метода для понимания того, как работает асинхронность в C#.
+
+Подход из этой статьи похож на то, что еще в 2017 году делал Сергей Тепляков в [своей статье](https://devblogs.microsoft.com/premier-developer/dissecting-the-async-methods-in-c/). Отличие в том, что в моем примере SM сохранена более точно в первозданном виде, еще сразу внутри SM код сопроважден комментариями и разобран вопрос с аллокациями.
+
+Начнем. Сначала рассмотрим простой код на обычном ("высокуровневом") C#. 
 ```csharp
 using System;
 using System.Threading.Tasks;
@@ -19,23 +23,26 @@ public class Program {
         
         _fileContent = await File.ReadAllTextAsync("file1");
         
-        await Task.Delay(200);
+        await Task.Delay(delay);
     }
 }
 ```
+Код сначала ожидает 100 мс, затем считывает из консоли сколько еще ожидать, еще ожидает, считыват данные из файла и еще ожидает. Логики в последовательности этих вызовов искать не стоит, для нас здесь главное, что это просто понятные асинхронные вызовы.
 
-# "Низкоуровневый C#"
-Далее следует код, который генерирует компилятор из высокоуровневого (обычного) C#.
+# "Низкоуровневый" C#
 
-Код, сгенерированный компилятором трудно читать, поэтому я [попросил](https://chat.openai.com/share/ea94242e-4a09-4f86-9ef5-d881ade02b73) нейросеть провести небольшой рефакторинг, чтобы сделать его более читаемым. Вот что получилось:
+Далее следует код, который генерирует компилятор из "высокоуровневого" (обычного) C#.
+Сразу скажу, что оригинальный код, сгенерированный компилятором [выглядит](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===) так, как будто разработчики кодо-генератора делали все для того, чтобы человеку было непонятно ничего. Тем не менее, кому интересно, оригинальный код можно [посмотреть на sharplab.io](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===).
+
+В общем, я [попросил](https://chat.openai.com/share/ea94242e-4a09-4f86-9ef5-d881ade02b73) нейросеть провести небольшой рефакторинг, чтобы сделать код более читаемым, а также сопроводил значимые и неочевидные места подробными комментариями. Вот что получилось:
 ```csharp
-[CompilerGenerated]
+// Машина состояний (SM)
 private sealed class AsyncStateMachine : IAsyncStateMachine
 {
     // Определение состояний для машины состояний
     public enum State
     {
-        NotStarted,               // Не начато
+        NotStarted,               // Машина состояний не запущена - начальное состояние
         WaitingAfterInitialDelay, // Ожидание после начальной задержки
         WaitingForFileRead,       // Ожидание чтения файла
         WaitingAfterFinalDelay,   // Ожидание после последней задержки
@@ -46,9 +53,9 @@ private sealed class AsyncStateMachine : IAsyncStateMachine
 
     public AsyncTaskMethodBuilder Builder; // Строитель задачи асинхронного метода
 
-    public Program Instance; // Экземпляр программы
+    public Program Instance; // Экземпляр программы (оригинального класса)
 
-    private int DelayDuration; // Длительность задержки
+    private int DelayDuration; // Длительность задержки (переменная delay стала полем машины состояний)
 
     private string FileContentTemp; // Временное хранение содержимого файла
 
@@ -67,15 +74,28 @@ private sealed class AsyncStateMachine : IAsyncStateMachine
                     DelayAwaiter = Task.Delay(100).GetAwaiter();
                     if (DelayAwaiter.IsCompleted)
                     {
+                        /* 
+                            В случае если таска сразу после запуска завершилась, произойдет переход к выполнению следующего этапа машины состояний (WaitingAfterInitialDelay)
+                            (такое бывает, например, когда в методе с модификатором async нет асинхронных вызовов, либо если мы эвэйтим уже завершенную таску)
+                        */
                         goto case State.WaitingAfterInitialDelay;
                     }
+                    // Конкретно в этом кейсе, исполнение не зайдет в if, который выше, а выполнит две нижние строки
                     CurrentState = State.WaitingAfterInitialDelay;
                     Builder.AwaitUnsafeOnCompleted(ref DelayAwaiter, ref this);
+                    /* 
+                        AwaitUnsafeOnCompleted запланирует, что указанная машина состояний будет продвинута вперед после завершения работы указанного awaiter (будет вызван метод MoveNext).
+                        По смыслу это похоже на ContinueWith.
+                        Исходник *
+                    */
                     break;
 
                 case State.WaitingAfterInitialDelay:
-                    // Получение результата начальной задержки
-                    DelayAwaiter.GetResult(); // Нужно для обработки исключений, на случай если в асинхронном методе произошла ошибка
+                    DelayAwaiter.GetResult();
+                    /*
+                        В случае если в асинхронном методе случился эксепшн, тогда он будет выброшен при вызове GetResult и мы сразу попадем в блок catch.
+                    */
+
                     DelayDuration = int.Parse(Console.ReadLine());
                     DelayAwaiter = Task.Delay(DelayDuration).GetAwaiter();
                     if (DelayAwaiter.IsCompleted)
@@ -83,11 +103,14 @@ private sealed class AsyncStateMachine : IAsyncStateMachine
                         goto case State.WaitingForFileRead;
                     }
                     CurrentState = State.WaitingForFileRead;
-                    Builder.AwaitUnsafeOnCompleted(ref DelayAwaiter, ref this); // Запланирует, что указанная машина состояний будет продвинута вперед после завершения работы указанного awaiter (будет вызван метод MoveNext).
+                    Builder.AwaitUnsafeOnCompleted(ref DelayAwaiter, ref this);
                     break;
 
                 case State.WaitingForFileRead:
-                    // Получение результата задержки перед чтением файла
+                    /*
+                        Важно, что если выполнение идет по реально асинхронному сценарию (т. е. мы сюда приходим не из goto case), и используется контекст синхронизации по умолчанию, либо он не задан (что по умолчанию в запросах ASP.NET Core, например), то метод MoveNext() будет вызван из какого-то потока пула потоков. То есть, в таком случае существует высокая вероятность того, что разные состояния SM будут вызваны разными потоками.
+                        Обычно, нам, программистам, эта особенность не мешает. Но есть редкие кейсы, где это может быть важно - как, например, кейс в одной из задачек на самопроверку ниже в статье.
+                    */
                     DelayAwaiter.GetResult();
                     ReadFileAwaiter = File.ReadAllTextAsync("file1").GetAwaiter();
                     if (ReadFileAwaiter.IsCompleted)
@@ -103,7 +126,7 @@ private sealed class AsyncStateMachine : IAsyncStateMachine
                     FileContentTemp = ReadFileAwaiter.GetResult();
                     Instance._fileContent = FileContentTemp;
                     FileContentTemp = null;
-                    DelayAwaiter = Task.Delay(200).GetAwaiter();
+                    DelayAwaiter = Task.Delay(DelayDuration).GetAwaiter();
                     if (DelayAwaiter.IsCompleted)
                     {
                         CurrentState = State.Finished;
@@ -131,30 +154,114 @@ public Task Main()
     stateMachine.Builder = AsyncTaskMethodBuilder.Create();
     stateMachine.Instance = this;
     stateMachine.CurrentState = AsyncStateMachine.State.NotStarted;
-    stateMachine.Builder.Start(ref stateMachine); // Первый вызов MoveNext происходит прямо в Start
-    // Исходный код этого метода Start доступен по ссылке: https://source.dot.net/#System.Private.CoreLib/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncMethodBuilderCore.cs,21
+    stateMachine.Builder.Start(ref stateMachine);
+    /* 
+        Первый вызов MoveNext происходит прямо в stateMachine.Builder.Start. Т. е. первое состояние нашей SM фактически выполняется синхронно (и далее до первого реального асинхронного вызова).
+        Исходник **
+    */
     return stateMachine.Builder.Task;
 }
 ```
+\* Исходный код метода `AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted` доступен [по ссылке](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilder.cs#L63)
+\*\* Исходный код этого метода `AsyncStateMachine.Builder.Start` доступен [по ссылке](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncMethodBuilderCore.cs#L38).
+
+Из кода выше видно, что, фактически, на каждое использование ключевого слова `await` компилятор генерирует дополнительное состояние для машины состояний (SM). Кроме того, важно отметить, что саму машину состояний компилятор сгенерирует в случае если в определении типа метода используется модификатор `async`.
 Кстати, этот код не запустится, потому что в нем нет некоторых вспомогательных методов, которые генерирует компилятор. Но он позволяет понять, как работает асинхронность в C#.
 
 ## Advanced
-Еще интересно, что в Debug `AsyncStateMachine` для тасков представлен в виде класса, в Release - в виде структуры (`struct`). Но хоть это и структура, если выполнение пойдет действительно по асинхронному сценарию, под капотом в Runtime все-таки произойдет аллокация для `AsyncStateMachine`.
+Еще интересно, что в Debug режиме `AsyncStateMachine` для тасок представлен в виде класса, а в Release — в виде структуры (`struct`). Но хоть это и структура, если выполнение пойдет действительно по асинхронному сценарию, под капотом в Runtime все-таки произойдет аллокация для `AsyncStateMachine`.
 
-Когда выполнение идет по действительно асинхронному сценарию (вызов `DelayAwaiter.IsCompleted` возвращает `false`), CLR'у машину состояний необходимо переместить из стека в управляемую кучу, для этого она упаковывается (boxing) в [AsyncStateMachineBox<TStateMachine>](https://source.dot.net/#System.Private.CoreLib/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs,275) рантаймом. 
-Для `Task` это происходит внутри [AsyncTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://source.dot.net/#System.Private.CoreLib/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs,220). 
-Для `ValueTask` это происходит внутри [PoolingAsyncValueTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://source.dot.net/#System.Private.CoreLib/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs,212). Обратите внимание, что в CLR предусмотрена возможность [пулинга](https://source.dot.net/#System.Private.CoreLib/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs,212) `AsyncStateMachineBox` для минимизации аллокаций (метод [StateMachineBox<TStateMachine> RentFromCache()](https://source.dot.net/#System.Private.CoreLib/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs,299)). Подробнее о пулинге машины состояний можно почитать в [статье Стивена Тауба](https://devblogs.microsoft.com/dotnet/async-valuetask-pooling-in-net-5/).
+Когда выполнение идет по действительно асинхронному сценарию (вызов `DelayAwaiter.IsCompleted` возвращает `false`), CLR'у машину состояний необходимо переместить из стека в управляемую кучу, для этого она упаковывается (boxing) в [AsyncStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L275) рантаймом. 
+Для `Task` это происходит внутри [AsyncTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L220). 
+Для `ValueTask` это происходит внутри цепочки ([AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncValueTaskMethodBuilder.cs#L98) -> [AsyncTaskMethodBuilder<TResult>.AwaitUnsafeOnCompleted](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L92) -> [AsyncTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L220)). Обратите внимание, что в CLR предусмотрена возможность [пулинга](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L212) `AsyncStateMachineBox` для минимизации аллокаций (метод [StateMachineBox<TStateMachine> RentFromCache()](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L299)). Подробнее о пулинге машины состояний можно почитать в [статье Стивена Тауба](https://devblogs.microsoft.com/dotnet/async-valuetask-pooling-in-net-5/).
 
-Скриншоты аллокация для тестового метода [RealAsyncScenarioYield](../AsyncAwaitAllocation/Program.cs#L15): ![dotMemory Screenshot](../AsyncAwaitAllocation/dotmemory_screenshots/RealAsyncScenario_Allocations.png)
+Отдельно отмечу, что использование `ValueTask` часто **не отменяет** аллокаций в случае асинхронного сценария.
 
-Проверялось в декабре 2023 на .NET 8.
+Ну и финальное замечание — если присмотрется внимательно что стало с переменной `delay`, то мы увидим, что она была захвачена и перенесена в поле машины состояний (`DelayDuration` в очищенном коде и `<delay>5__2` [в коде от компилятора](https://sharplab.io/#v2:D4AQTAjAsAUCAMACEECsBuWDkQHQEkB5TGLAZmTBwHZEBvWRJxABwCcBLANwEMAXAKY4kAfQBmHADYCAwgHsAdoKUlmiRsxAUQADmQA2RAFkeHBQAoAlPQ1qmIAJwHcAEQGSeAT3MR48S6p2TLZ2ZnyIACbuXogAvIhhuAAKPGwAzgLm8gppctK4AEoCPBEAMmaZlgEhao7Obh7eUY3VMEHBbe3iUrKKyuHxdQBiPYXFEQCCkpIAKgIAHnwTaZ4KAMbmAEQS0hCbre3qnUF1IPqu0U2XB8wAvrC3QA==)). Соответственно, важно понимать, что если выполнение идет по асинхронному сценарию (что довольно часто), value type переменные забоксятся вместе с машиной состояний и будут перемещены в управляемую кучу (heap) — поэтому `Span`ы запрещено использовать в методах с модификатором `async`.
 
 # Что еще почитать по теме
 
 Например, [целый гайд от Стивена Тауба "How Async/Await Really Works in C#"](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/) ("Как на самом деле работает Async/Await в C#"). Переводы [доступны](https://habr.com/ru/articles/732738/) на Хабре.
 
-Или статью [Prefer ValueTask to Task, always; and don't await twice](https://blog.marcgravell.com/2019/08/prefer-valuetask-to-task-always-and.html), которая описывает не только особенности ValueTask, но и то, как реализовать даже асинхронную логику через `` или ``, минимизируя кол-во выделений памяти в куче.
+Или статью [Prefer ValueTask to Task, always; and don't await twice](https://blog.marcgravell.com/2019/08/prefer-valuetask-to-task-always-and.html), которая описывает не только особенности `ValueTask`, но и то, как реализовать даже асинхронную логику через `IValueTaskSource` или `ManualResetValueTaskSourceCore`, минимизируя кол-во выделений памяти в куче.
 
-# sharplab.io
+# Упражнения для проверки себя
 
-Оригинальный код и машину состояний можно посмотреть в sharplab.io: https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwTAmBDTzgBfZGegA=
+1. Что выведет программа?
+```csharp
+void Main()
+{
+    RunAsync();
+    Console.WriteLine("Main")
+    Console.Read();
+}
+
+async Task RunAsync()
+{
+    Console.WriteLine("RunAsync 1");
+    await Task.Delay(1);
+    Console.WriteLine("RunAsync 2");
+}
+```
+Ответ:
+Т. к. первое состояние точно выполнится синхронно (его выполняет вызывающий поток), то сразу при вызове `RunAsync` в консоль будет выведено "RunAsync 1".
+```
+Main
+RunAsync
+```
+Т. к. 
+
+2. Сколько состояний будет сгенеририровано для такого кода?
+```csharp
+async Task Delay1()
+{
+    await Task.Delay(1);
+}
+```
+Ответ:
+* первое состояние - это этап, на котором запускается таска `Task.Delay(1)`
+* второе состояние - продолжение (continuation) с вызовом `GetResult`, которое выполнится после завершения ранее запущенной таски.
+* Итого: 2 состояния.
+Кстати, технически, поле state там может принимать еще одно значение `-2`, которое устанавливается после завершения всех операций, но фактически оно эквивалетно начальному состоянию.
+
+3. А для такого?
+```csharp
+async Task MultiDelay()
+{
+    var task = Task.Delay(1);
+    await task;
+    await task;
+    await task;
+}
+```
+Ответ:
+* 1 до всех эвейтов на запуск `Task.Delay`
+* 1 continiation с вызовом `GetResult` после первого await'a 
+* затем 2 доп. состояния, делающих синхронное потребление уже завершенной таски (они выполняются по цепочке через `goto`)
+* Итого: 4 состояния.
+
+4. И финальная задача. Сколько состояний машины состояний будет сгенерировано для такого кода?
+```csharp
+Task Delay1()
+{
+    return Task.Delay(1);
+}
+```
+Ответ:
+Машина состояний для этого кода вообще не будет сгенерирована, т. к. отсутствует модификатор `async` в объявлении метода `Delay1`.
+
+5. Бонус: Вопрос, который иногда задают на собеседованиях о том, почему запрещено использовать `await` внутри `lock`. Чтобы ответить на него, достаточно концептуально (**упрощенно**) воссоздать код, в который [разворачивается](https://sharplab.io/#v2:D4AQTAjAsAUCDMACciDCiDetE+UkALIgLIAUAlJtrjQDYD2AxgNakAuAFgJYDO5A3NRwBfWMKA==) ключевое слово `lock`:
+```csharp
+object _syncObj = new();
+
+async Task DelayLocked()
+{
+    Monitor.Enter(_syncObj);
+    await Task.Delay(1);
+    Monitor.Exit(_syncObj);
+}
+```
+Ответ:
+Если вы еще не сталкивались с этой задачей и не знаете ответ на нее, для лучшего усваивания, я бы рекомендовал попробовать решить ее самостоятельно - запустите код из примера выше, посмотрите что он выдаст, затем посмотрите на сгенерированную машину состояний и постарайтесь понять что происходит. А о результатах своих исследований вы можете написать в комментариях к этой статье.
+
+В заключение, хочу поблагодарить Евгения Пешкова (@epeshk) за ревью этой статьи. А еще, интересно, что в будущих версиях .NET `async/await` [может](https://github.com/dotnet/runtime/issues/94620) сильно преобразится.
