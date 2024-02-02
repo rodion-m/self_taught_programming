@@ -2,11 +2,11 @@
 
 Несмотря на то, что про `async/await` уже было сказано много слов и записано множество докладов, тем не менее в своей практике преподавания и наставничества я часто сталкиваюсь с недопониманием устройства `async/await` даже у разработчиков уровня Middle+.
 
-Итак, в данной статье мы еще раз рассмотрим `машину состояний` (`конечный автомат`, `state machine`, далее просто `SM`), которую генерирует компилятор из асинхронного метода для понимания того, как работает асинхронность в C#.
+Как известно, при компиляции асинхронного метода компилятор преобразует код, разбивая его на отдельные шаги. Потом, во время выполнения каждый шаг прерывается асинхронной операцией. Когда она завершается, надо точно понимать, куда вернуть управление — в какой конкретно шаг. Поэтому все шаги нумеруются и компилятор очень строго следит за тем откуда куда можно перейти. В computer science такое решение называется *машиной состояний*. Еще, по-русски её называют *конечный автомат*. Далее, для краткости, я буду использовать сокращение SM (*state machine*).
 
-Подход из этой статьи похож на то, что еще в 2017 году делал Сергей Тепляков в [своей статье](https://devblogs.microsoft.com/premier-developer/dissecting-the-async-methods-in-c/). Отличие в том, что в моем примере SM сохранена более аккуратно в первозданном виде, еще сразу внутри SM код сопроважден комментариями, разобран вопрос с аллокациями и приведены разные кейсы.
+Итак, в данной статье мы подробно рассмотрим *машину состояний*, сгенерированную компилятором C# из асинхронного метода для понимания принципа работы асинхронности в C#.
 
-Сначала рассмотрим простой код на обычном ("высокуровневом") C#. 
+Сначала рассмотрим пример простого кода на обычном ("высокуровневом") C#. 
 ```csharp
 using System;
 using System.Threading.Tasks;
@@ -166,14 +166,22 @@ public Task Main()
 \*\* Исходный код этого метода `AsyncStateMachine.Builder.Start` доступен [по ссылке](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncMethodBuilderCore.cs#L38).
 
 Из кода выше видно, что, фактически, на каждое использование ключевого слова `await` компилятор генерирует дополнительное состояние для машины состояний (SM). Кроме того, важно отметить, что саму машину состояний компилятор сгенерирует в случае если в определении типа метода используется модификатор `async`.
+
 Кстати, этот код не запустится, потому что в нем нет некоторых вспомогательных методов, которые генерирует компилятор. Но он позволяет понять, как работает асинхронность в C#.
 
-## Advanced
-Еще интересно, что в Debug режиме `AsyncStateMachine` для тасок представлен в виде класса, а в Release — в виде структуры (`struct`). Но хоть это и структура, если выполнение пойдет действительно по асинхронному сценарию, под капотом в Runtime все-таки произойдет аллокация для `AsyncStateMachine`.
+## Разбираемся с аллокациями
 
-Когда выполнение идет по действительно асинхронному сценарию (вызов `DelayAwaiter.IsCompleted` возвращает `false`), CLR'у машину состояний необходимо переместить из стека в управляемую кучу, для этого она упаковывается (boxing) в [AsyncStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L275) рантаймом. 
+Интересно, что в Debug режиме `AsyncStateMachine` для тасок представлен в виде класса, а в Release — в виде структуры (`struct`). Но хоть это и структура, если выполнение пойдет действительно по асинхронному сценарию, под капотом в Runtime все-таки произойдет аллокация для `AsyncStateMachine`.
+
+Когда выполнение идет по асинхронному сценарию (вызов `DelayAwaiter.IsCompleted` возвращает `false`), CLR'у машину состояний необходимо переместить из стека в управляемую кучу, для этого она упаковывается (boxing) в [AsyncStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L275) рантаймом. 
 Для `Task` это происходит внутри [AsyncTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L220). 
-Для `ValueTask` это происходит внутри цепочки ([AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncValueTaskMethodBuilder.cs#L98) -> [AsyncTaskMethodBuilder<TResult>.AwaitUnsafeOnCompleted](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L92) -> [AsyncTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L220)). Обратите внимание, что в CLR предусмотрена возможность [пулинга](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L212) `AsyncStateMachineBox` для минимизации аллокаций (метод [StateMachineBox<TStateMachine> RentFromCache()](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L299)). Подробнее о пулинге машины состояний можно почитать в [статье Стивена Тауба](https://devblogs.microsoft.com/dotnet/async-valuetask-pooling-in-net-5/).
+Для `ValueTask` это происходит внутри цепочки ([AsyncValueTaskMethodBuilder.AwaitUnsafeOnCompleted](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncValueTaskMethodBuilder.cs#L98) -> [AsyncTaskMethodBuilder<TResult>.AwaitUnsafeOnCompleted](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L92) -> [AsyncTaskMethodBuilder<TResult>.GetStateMachineBox<TStateMachine>](https://github.com/dotnet/runtime/blob/v8.0.1/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/AsyncTaskMethodBuilderT.cs#L220)). 
+
+## Пулинг 
+
+В CLR предусмотрена возможность [пулинга*](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L212) `AsyncStateMachineBox` для минимизации аллокаций (метод [StateMachineBox<TStateMachine> RentFromCache()](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L299)).
+
+\* пулинг в данном контексте — это техника повторного использования данных для экономии места в куче приложения и ресурсов **GC**. В случае пулинга машины состояний, CLR сможет повторно ее использовать для `ValueTask`, чтобы сэкономить на аллокациях в куче. Хотя, даже Стивен Тауб [сомневается](https://devblogs.microsoft.com/dotnet/async-valuetask-pooling-in-net-5) в реальной эффективности такого подхода.
 
 Отдельно отмечу, что использование `ValueTask` часто **не отменяет** аллокаций в случае асинхронного сценария.
 
@@ -268,4 +276,57 @@ async Task DelayLocked()
 
 Материал актуален для версии .NET 8.0.1. С удовольствием отвечу на ваши вопросы в комментариях.
 
-Заканчивая, хочу поблагодарить Евгения Пешкова (@epeshk) за ревью этой статьи. А еще, интересно, что в будущих версиях .NET `async/await` [может](https://github.com/dotnet/runtime/issues/94620) сильно преобразиться.
+Кстати, подход из этой статьи похож на то, что еще в 2017 году делал Сергей Тепляков в [своей статье](https://devblogs.microsoft.com/premier-developer/dissecting-the-async-methods-in-c/). Отличие в том, что в моем примере SM сохранена более аккуратно в первозданном виде, еще сразу внутри SM код сопроважден комментариями, разобран вопрос с аллокациями и приведены разные кейсы.
+
+Заканчивая, хочу поблагодарить Марка Шевченко (@markshevchenko) и Евгения Пешкова (@epeshk) за ревью этой статьи. А еще, интересно, что в будущих версиях .NET `async/await` [может](https://github.com/dotnet/runtime/issues/94620) сильно преобразиться.
+
+---
+
+### Для обложки
+
+```csharp
+private void MoveNext()
+{
+    int num = <>1__state;
+    TaskAwaiter awaiter;
+    if (num != 0)
+    {
+        awaiter = Task.Delay(1).GetAwaiter();
+        if (!awaiter.IsCompleted)
+        {
+            num = (<>1__state = 0);
+            <>u__1 = awaiter;
+            <Job1>d__1 stateMachine = this;
+            <>t__builder.AwaitUnsafeOnCompleted(ref awaiter, ref stateMachine);
+            return;
+        }
+    }
+    else
+    {
+        awaiter = <>u__1;
+        <>u__1 = default(TaskAwaiter);
+        num = (<>1__state = -1);
+    }
+    awaiter.GetResult();
+}
+
+private void MoveNext()
+{
+    switch (currentState)
+    {
+        case State.NotStarted:
+            taskAwaiter = Task.Delay(1).GetAwaiter();
+            if (taskAwaiter.IsCompleted)
+            {
+                goto case State.Completed;
+            }
+            currentState = State.AfterDelay;
+            taskBuilder.AwaitUnsafeOnCompleted(ref taskAwaiter, ref this);
+            break;
+        case State.AfterDelay:
+            taskAwaiter.GetResult();
+            currentState = State.Completed;
+            break;
+    }
+}
+```
