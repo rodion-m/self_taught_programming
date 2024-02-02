@@ -9,7 +9,7 @@
 ## "Высокуровневый" C#
 
 Сначала рассмотрим пример простого кода на обычном ("высокуровневом") C#. 
-```csharp
+```cs
 using System;
 using System.Threading.Tasks;
 using System.IO;
@@ -37,7 +37,7 @@ public class Program {
 Сразу скажу, что оригинальный код, сгенерированный компилятором, [выглядит](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===) так, как будто разработчики кодо-генератора делали все для того, чтобы человеку было непонятно ничего. Тем не менее, кому интересно, оригинальный код можно [посмотреть на sharplab.io](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===).
 
 В общем, я [попросил](https://chat.openai.com/share/ea94242e-4a09-4f86-9ef5-d881ade02b73) нейросеть провести небольшой рефакторинг, чтобы сделать код более читаемым, а также сопроводил значимые и неочевидные места подробными комментариями. Вот что получилось (содержимое класса `Program`):
-```csharp
+```cs
 // Машина состояний (SM)
 private sealed class AsyncStateMachine : IAsyncStateMachine
 {
@@ -198,7 +198,7 @@ public Task Main()
 ## Упражнения для самопроверки
 
 1. Что выведет программа?
-```csharp
+```cs
 void Main()
 {
     RunAsync(); //"fire-and-forget"
@@ -223,7 +223,7 @@ RunAsync 2
 ```
 
 2. Сколько состояний SM будет сгенерировано для такого кода?
-```csharp
+```cs
 async Task Delay1()
 {
     await Task.Delay(1);
@@ -237,7 +237,7 @@ async Task Delay1()
 Кстати, технически, поле state там может принимать еще одно значение `-2`, которое устанавливается после завершения всех операций, но фактически оно эквивалетно начальному состоянию.
 
 3. А для такого?
-```csharp
+```cs
 async Task MultiDelay()
 {
     var task = Task.Delay(1);
@@ -253,7 +253,7 @@ async Task MultiDelay()
 * Итого: 4 состояния.
 
 4. И финальная задача. Сколько состояний SM будет сгенерировано для такого кода?
-```csharp
+```cs
 Task Delay1()
 {
     return Task.Delay(1);
@@ -263,7 +263,7 @@ Task Delay1()
 Машина состояний для этого кода вообще не будет сгенерирована, т. к. отсутствует модификатор `async` в объявлении метода `Delay1`.
 
 5. Бонус: Вопрос, который иногда задают на собеседованиях о том, почему запрещено использовать `await` внутри `lock`. Чтобы ответить на него, достаточно концептуально (**упрощенно**) воссоздать код, в который [разворачивается](https://sharplab.io/#v2:D4AQTAjAsAUCDMACciDCiDetE+UkALIgLIAUAlJtrjQDYD2AxgNakAuAFgJYDO5A3NRwBfWMKA==) ключевое слово `lock`:
-```csharp
+```cs
 object _syncObj = new();
 
 async Task DelayLocked()
@@ -289,7 +289,7 @@ async Task DelayLocked()
 
 #### Для обложки
 
-```csharp
+```cs
 private void MoveNext()
 {
     int num = <>1__state;
