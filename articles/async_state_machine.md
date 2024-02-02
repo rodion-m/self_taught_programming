@@ -6,6 +6,8 @@
 
 Итак, в данной статье мы подробно рассмотрим *машину состояний*, сгенерированную компилятором C# из асинхронного метода для понимания принципа работы асинхронности в C#.
 
+## "Высокуровневый" C#
+
 Сначала рассмотрим пример простого кода на обычном ("высокуровневом") C#. 
 ```csharp
 using System;
@@ -29,7 +31,7 @@ public class Program {
 ```
 Код сначала ожидает 100 мс, затем считывает из консоли сколько еще ожидать, еще ожидает, считыват данные из файла и еще ожидает. Логики в последовательности этих вызовов искать не стоит, для нас здесь главное, что это просто понятные асинхронные вызовы.
 
-# "Низкоуровневый" C#
+## "Низкоуровневый" C#
 
 Далее следует код, который генерирует компилятор из "высокоуровневого" (обычного) C#.
 Сразу скажу, что оригинальный код, сгенерированный компилятором, [выглядит](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===) так, как будто разработчики кодо-генератора делали все для того, чтобы человеку было непонятно ничего. Тем не менее, кому интересно, оригинальный код можно [посмотреть на sharplab.io](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===).
@@ -181,19 +183,19 @@ public Task Main()
 
 В CLR предусмотрена возможность [пулинга*](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L212) `AsyncStateMachineBox` для минимизации аллокаций (метод [StateMachineBox<TStateMachine> RentFromCache()](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/PoolingAsyncValueTaskMethodBuilderT.cs#L299)).
 
-\* пулинг в данном контексте — это техника повторного использования данных для экономии места в куче приложения и ресурсов **GC**. В случае пулинга машины состояний, CLR сможет повторно ее использовать для `ValueTask`, чтобы сэкономить на аллокациях в куче. Хотя, даже Стивен Тауб [сомневается](https://devblogs.microsoft.com/dotnet/async-valuetask-pooling-in-net-5) в реальной эффективности такого подхода.
+\* пулинг (pooling) в данном контексте — это техника повторного использования данных для экономии места в куче приложения и ресурсов **GC**. В случае пулинга машины состояний, CLR сможет повторно ее использовать для `ValueTask`, чтобы сэкономить на аллокациях в куче. Хотя, даже Стивен Тауб [сомневается](https://devblogs.microsoft.com/dotnet/async-valuetask-pooling-in-net-5) в реальной эффективности такого подхода.
 
 Отдельно отмечу, что использование `ValueTask` часто **не отменяет** аллокаций в случае асинхронного сценария.
 
 Ну и финальное замечание — если присмотрется внимательно что стало с переменной `delay`, то мы увидим, что она была захвачена и перенесена в поле машины состояний (`DelayDuration` в очищенном коде и `<delay>5__2` [в коде от компилятора](https://sharplab.io/#v2:D4AQTAjAsAUCAMACEECsBuWDkQHQEkB5TGLAZmTBwHZEBvWRJxABwCcBLANwEMAXAKY4kAfQBmHADYCAwgHsAdoKUlmiRsxAUQADmQA2RAFkeHBQAoAlPQ1qmIAJwHcAEQGSeAT3MR48S6p2TLZ2ZnyIACbuXogAvIhhuAAKPGwAzgLm8gppctK4AEoCPBEAMmaZlgEhao7Obh7eUY3VMEHBbe3iUrKKyuHxdQBiPYXFEQCCkpIAKgIAHnwTaZ4KAMbmAEQS0hCbre3qnUF1IPqu0U2XB8wAvrC3QA==)). Соответственно, важно понимать, что если выполнение идет по асинхронному сценарию (что довольно часто), value type переменные забоксятся вместе с машиной состояний и будут перемещены в управляемую кучу (heap) — поэтому `Span`ы запрещено использовать в методах с модификатором `async`.
 
-# Что еще почитать по теме
+## Что еще почитать по теме
 
 Например, [целый гайд от Стивена Тауба "How Async/Await Really Works in C#"](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/) ("Как на самом деле работает Async/Await в C#"). Переводы также [доступны](https://habr.com/ru/articles/732738/) на хабре.
 
 Или статью [Prefer ValueTask to Task, always; and don't await twice](https://blog.marcgravell.com/2019/08/prefer-valuetask-to-task-always-and.html), которая описывает не только особенности `ValueTask`, но и то, как реализовать даже асинхронную логику через `IValueTaskSource` или `ManualResetValueTaskSourceCore`, минимизируя кол-во выделений памяти в куче.
 
-# Упражнения для самопроверки
+## Упражнения для самопроверки
 
 1. Что выведет программа?
 ```csharp
@@ -280,9 +282,12 @@ async Task DelayLocked()
 
 Заканчивая, хочу поблагодарить Марка Шевченко (@markshevchenko) и Евгения Пешкова (@epeshk) за ревью этой статьи. А еще, интересно, что в будущих версиях .NET `async/await` [может](https://github.com/dotnet/runtime/issues/94620) сильно преобразиться.
 
+
+
 ---
 
-### Для обложки
+
+#### Для обложки
 
 ```csharp
 private void MoveNext()
@@ -321,7 +326,7 @@ private void MoveNext()
                 goto case State.Completed;
             }
             currentState = State.AfterDelay;
-            taskBuilder.AwaitUnsafeOnCompleted(ref taskAwaiter, ref this);
+            taskBuilder.AwaitUnsafeOnCompleted
             break;
         case State.AfterDelay:
             taskAwaiter.GetResult();
