@@ -1,6 +1,6 @@
 ﻿# Еще раз про асинхронную машину состояний и где именно там аллокации
 
-Несмотря на то, что про `async/await` уже было сказано много слов и записано множество докладов, тем не менее в своей практике преподавания и наставничества я часто сталкиваюсь с недопонимаем устройства `async/await` даже у Middle+ разработчиков.
+Несмотря на то, что про `async/await` уже было сказано много слов и записано множество докладов, тем не менее в своей практике преподавания и наставничества я часто сталкиваюсь с недопониманием устройства `async/await` даже у разработчиков уровня Middle+.
 
 Итак, в данной статье мы еще раз рассмотрим `машину состояний` (`конечный автомат`, `state machine`, далее просто `SM`), которую генерирует компилятор из асинхронного метода для понимания того, как работает асинхронность в C#.
 
@@ -32,7 +32,7 @@ public class Program {
 # "Низкоуровневый" C#
 
 Далее следует код, который генерирует компилятор из "высокоуровневого" (обычного) C#.
-Сразу скажу, что оригинальный код, сгенерированный компилятором [выглядит](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===) так, как будто разработчики кодо-генератора делали все для того, чтобы человеку было непонятно ничего. Тем не менее, кому интересно, оригинальный код можно [посмотреть на sharplab.io](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===).
+Сразу скажу, что оригинальный код, сгенерированный компилятором, [выглядит](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===) так, как будто разработчики кодо-генератора делали все для того, чтобы человеку было непонятно ничего. Тем не менее, кому интересно, оригинальный код можно [посмотреть на sharplab.io](https://sharplab.io/#v2:CYLg1APgAgTAjAWAFBQAwAIpwKwG5lqZwB0AkgPL5IEDMmMRA7OgN7LofoAOATgJYA3AIYAXAKZEMAfQBmfADZiAwgHsAduI1VO6dpyh0oADkwA2dAFkhfNQAoAlKz06OUAJxniAETHyhAT1s4VFR7bRcOZxcbEXRgXwD0AF50GOIABSEeAGcxW1U1bJVFYgAlMSFgABkbPPswqJ13Tx8/QPi2hqQIyO6e2QVldU1YlOaAMUGyiuAAQXl5ABUxAA8RWez/NQBjWwAiOUU4Pa6e3T6I5qhTbwT2u9POAF9kJ6A===).
 
 В общем, я [попросил](https://chat.openai.com/share/ea94242e-4a09-4f86-9ef5-d881ade02b73) нейросеть провести небольшой рефакторинг, чтобы сделать код более читаемым, а также сопроводил значимые и неочевидные места подробными комментариями. Вот что получилось (содержимое класса `Program`):
 ```csharp
@@ -108,7 +108,7 @@ private sealed class AsyncStateMachine : IAsyncStateMachine
 
                 case State.WaitingForFileRead:
                     /*
-                        Важно, что если выполнение идет по реально асинхронному сценарию (т. е. мы сюда приходим не из goto case), и используется контекст синхронизации по умолчанию, либо он не задан (что по умолчанию в запросах ASP.NET Core, например), то метод MoveNext() будет вызван из какого-то потока пула потоков. То есть, в таком случае существует высокая вероятность того, что разные состояния SM будут запущены разными потоками.
+                        Важно, что если выполнение идет по реально асинхронному сценарию (т. е. мы попадаем сюда не из goto case), и используется контекст синхронизации по умолчанию, либо он не задан (что по умолчанию в запросах ASP.NET Core, например), то метод MoveNext() будет вызван из какого-то потока пула потоков. То есть, разные состояния SM могут быть запущены разными потоками.
                         Обычно, нам, программистам, эта особенность не мешает. Но есть редкие кейсы, где это может быть важно - как, например, кейс в одной из задачек на самопроверку ниже в статье.
                     */
                     DelayAwaiter.GetResult();
@@ -181,7 +181,7 @@ public Task Main()
 
 # Что еще почитать по теме
 
-Например, [целый гайд от Стивена Тауба "How Async/Await Really Works in C#"](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/) ("Как на самом деле работает Async/Await в C#"). Переводы [доступны](https://habr.com/ru/articles/732738/) на хабре.
+Например, [целый гайд от Стивена Тауба "How Async/Await Really Works in C#"](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/) ("Как на самом деле работает Async/Await в C#"). Переводы также [доступны](https://habr.com/ru/articles/732738/) на хабре.
 
 Или статью [Prefer ValueTask to Task, always; and don't await twice](https://blog.marcgravell.com/2019/08/prefer-valuetask-to-task-always-and.html), которая описывает не только особенности `ValueTask`, но и то, как реализовать даже асинхронную логику через `IValueTaskSource` или `ManualResetValueTaskSourceCore`, минимизируя кол-во выделений памяти в куче.
 
@@ -212,7 +212,7 @@ Main
 RunAsync 2
 ```
 
-2. Сколько состояний SM будет сгенеририровано для такого кода?
+2. Сколько состояний SM будет сгенерировано для такого кода?
 ```csharp
 async Task Delay1()
 {
@@ -264,8 +264,8 @@ async Task DelayLocked()
 }
 ```
 Ответ:
-Если вы еще не сталкивались с этой задачей и не знаете ответ на нее, для лучшего усваивания, я бы рекомендовал попробовать решить ее самостоятельно - запустите код из примера выше, посмотрите что он выдаст, затем посмотрите на сгенерированную машину состояний и постарайтесь понять что происходит. А о результатах своих исследований вы можете написать в комментариях к этой статье. Спойлер: результат выполнения этого кода зависит от контекста синхронизации.
+Если вы еще не сталкивались с этой задачей и не знаете ответ на нее, для лучшего усваивания, я бы рекомендовал попробовать решить ее самостоятельно - запустите код из вышеупомянутого примера, посмотрите что он выдаст, затем посмотрите на сгенерированную машину состояний и постарайтесь понять что происходит. А о результатах своих исследований вы можете написать в комментариях к этой статье. Спойлер: результат выполнения этого кода зависит от контекста синхронизации.
 
-Материал актуален для .NET 8.0.1. С удовольствием отвечу на ваши вопросы в комментариях.
+Материал актуален для версии .NET 8.0.1. С удовольствием отвечу на ваши вопросы в комментариях.
 
 Заканчивая, хочу поблагодарить Евгения Пешкова (@epeshk) за ревью этой статьи. А еще, интересно, что в будущих версиях .NET `async/await` [может](https://github.com/dotnet/runtime/issues/94620) сильно преобразиться.
