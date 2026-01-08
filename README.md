@@ -53,10 +53,14 @@
   - [YouTube каналы](#youtube-каналы)
   - [Чаты (сообщества)](#чаты-сообщества)
   - [Другие сборники](#другие-сборники)
-  - [TODO](#todo)
-      - [Материалы будут пополняться и структурироваться. PR горячо приветствуются.](#материалы-будут-пополняться-и-структурироваться-pr-горячо-приветствуются)
 
 ***
+
+# Star History
+
+**Лучшая благодарность за этот сборник - ваша звездочка в репозиторий! Сделаем знания популярными вместе.**
+
+[![Star History Chart](https://api.star-history.com/svg?repos=rodion-m/self_taught_programming&type=date&legend=top-left)](https://www.star-history.com/#rodion-m/self_taught_programming&type=date&legend=top-left)
 
 # Начинающим
 ## Записи курсов
