@@ -58,7 +58,7 @@
 
 # Star History
 
-**Лучшая благодарность за этот сборник - ваша звездочка в репозиторий! Сделаем знания популярными вместе.**
+**Лучшая благодарность за этот сборник –– ваша звездочка в репозиторий! Сделаем знания популярными вместе.**
 
 [![Star History Chart](https://api.star-history.com/svg?repos=rodion-m/self_taught_programming&type=date&legend=top-left)](https://www.star-history.com/#rodion-m/self_taught_programming&type=date&legend=top-left)
 
